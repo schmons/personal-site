@@ -335,6 +335,7 @@ Task: ${formatInstruction}`,
           content: [{ type: "text", text }],
         };
       } catch (err) {
+        console.error("[pitch_for_role] sampling failed:", err);
         return {
           isError: true,
           content: [
