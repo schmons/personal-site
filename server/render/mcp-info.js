@@ -44,7 +44,7 @@ export function renderMcpInfo(req) {
   }
 }</code></pre>
 
-    <p class="muted mcp-footnote">Streamable HTTP, no auth, public. <a href="https://github.com/schmons/schmons.github.io">Source on GitHub</a>.</p>
+    <p class="muted mcp-footnote">Streamable HTTP, no auth, public. <a href="https://github.com/schmons/personal-site">Source on GitHub</a>.</p>
   </article>
   `;
 
