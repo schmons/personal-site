@@ -1,0 +1,275 @@
+/**
+ * Stdio entry point for Claude Desktop / Claude Code.
+ * Run directly: node server/mcp/stdio.js
+ */
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+import { getResume, getPublications, getAllCvData } from "./data-loader.js";
+
+const server = new McpServer({
+  name: "sebastian-schmon-cv",
+  version: "1.0.0",
+});
+
+// ---------------------------------------------------------------------------
+// RESOURCES
+// ---------------------------------------------------------------------------
+
+server.resource("cv-profile", "cv://profile", "Professional profile: name, title, summary, and social links", async () => {
+  const profile = getResume().basics;
+  return { contents: [{ uri: "cv://profile", mimeType: "application/json", text: JSON.stringify(profile, null, 2) }] };
+});
+
+server.resource("cv-experience", "cv://experience", "Work experience history", async () => {
+  return { contents: [{ uri: "cv://experience", mimeType: "application/json", text: JSON.stringify(getResume().work, null, 2) }] };
+});
+
+server.resource("cv-education", "cv://education", "Education history", async () => {
+  return { contents: [{ uri: "cv://education", mimeType: "application/json", text: JSON.stringify(getResume().education, null, 2) }] };
+});
+
+server.resource("cv-skills", "cv://skills", "Technical skills and expertise areas", async () => {
+  return { contents: [{ uri: "cv://skills", mimeType: "application/json", text: JSON.stringify(getResume().skills, null, 2) }] };
+});
+
+server.resource("cv-awards", "cv://awards", "Awards and honors", async () => {
+  return { contents: [{ uri: "cv://awards", mimeType: "application/json", text: JSON.stringify(getResume().awards, null, 2) }] };
+});
+
+server.resource("cv-publications", "cv://publications", "Academic publications from BibTeX bibliography", async () => {
+  return { contents: [{ uri: "cv://publications", mimeType: "application/json", text: JSON.stringify(getPublications(), null, 2) }] };
+});
+
+server.resource("cv-languages", "cv://languages", "Languages and fluency levels", async () => {
+  return { contents: [{ uri: "cv://languages", mimeType: "application/json", text: JSON.stringify(getResume().languages, null, 2) }] };
+});
+
+server.resource("cv-volunteer", "cv://volunteer", "Volunteer and academic service", async () => {
+  return { contents: [{ uri: "cv://volunteer", mimeType: "application/json", text: JSON.stringify(getResume().volunteer, null, 2) }] };
+});
+
+// ---------------------------------------------------------------------------
+// TOOLS
+// ---------------------------------------------------------------------------
+
+server.tool(
+  "search_cv",
+  "Full-text search across all CV sections",
+  { query: z.string().describe("Search term to match against CV content") },
+  async ({ query }) => {
+    const data = getAllCvData();
+    const q = query.toLowerCase();
+    const results = [];
+    for (const [section, entries] of Object.entries(data)) {
+      const text = JSON.stringify(entries).toLowerCase();
+      if (text.includes(q)) {
+        if (Array.isArray(entries)) {
+          const matches = entries.filter((e) => JSON.stringify(e).toLowerCase().includes(q));
+          if (matches.length > 0) results.push({ section, matches });
+        } else {
+          results.push({ section, matches: [entries] });
+        }
+      }
+    }
+    return { content: [{ type: "text", text: results.length > 0 ? JSON.stringify(results, null, 2) : `No results found for "${query}"` }] };
+  }
+);
+
+server.tool(
+  "get_experience",
+  "Get work experience, optionally filtered by company name or year",
+  {
+    company: z.string().optional().describe("Filter by company name (partial match)"),
+    year: z.number().optional().describe("Filter by year"),
+  },
+  async ({ company, year }) => {
+    let work = getResume().work || [];
+    if (company) { const c = company.toLowerCase(); work = work.filter((w) => w.name?.toLowerCase().includes(c)); }
+    if (year) { work = work.filter((w) => { const s = parseInt(w.startDate, 10); const e = w.endDate ? parseInt(w.endDate, 10) : new Date().getFullYear(); return year >= s && year <= e; }); }
+    return { content: [{ type: "text", text: JSON.stringify(work, null, 2) }] };
+  }
+);
+
+server.tool(
+  "get_skills",
+  "Get skills and keywords, optionally filtered by category",
+  { category: z.string().optional().describe("Filter by skill category name") },
+  async ({ category }) => {
+    let skills = getResume().skills || [];
+    if (category) { const c = category.toLowerCase(); skills = skills.filter((s) => s.name?.toLowerCase().includes(c)); }
+    return { content: [{ type: "text", text: JSON.stringify(skills, null, 2) }] };
+  }
+);
+
+server.tool(
+  "get_publications",
+  "Search and filter academic publications",
+  {
+    keyword: z.string().optional().describe("Search keyword in title or authors"),
+    year: z.number().optional().describe("Filter by publication year"),
+    selected_only: z.boolean().optional().describe("Only return selected/featured publications"),
+  },
+  async ({ keyword, year, selected_only }) => {
+    let pubs = getPublications();
+    if (keyword) { const k = keyword.toLowerCase(); pubs = pubs.filter((p) => p.title?.toLowerCase().includes(k) || p.authors?.some((a) => a.toLowerCase().includes(k)) || p.venue?.toLowerCase().includes(k)); }
+    if (year) { pubs = pubs.filter((p) => p.year === year); }
+    if (selected_only) { pubs = pubs.filter((p) => p.selected); }
+    return { content: [{ type: "text", text: JSON.stringify(pubs, null, 2) }] };
+  }
+);
+
+server.tool(
+  "get_education",
+  "Get education history, optionally filtered",
+  {
+    institution: z.string().optional().describe("Filter by institution name"),
+    degree: z.string().optional().describe("Filter by degree type (PhD, MSc, BSc)"),
+  },
+  async ({ institution, degree }) => {
+    let edu = getResume().education || [];
+    if (institution) { const i = institution.toLowerCase(); edu = edu.filter((e) => e.institution?.toLowerCase().includes(i)); }
+    if (degree) { const d = degree.toLowerCase(); edu = edu.filter((e) => e.studyType?.toLowerCase().includes(d)); }
+    return { content: [{ type: "text", text: JSON.stringify(edu, null, 2) }] };
+  }
+);
+
+// ---------------------------------------------------------------------------
+// SAMPLING-BACKED TOOLS (server calls back to client's LLM)
+// ---------------------------------------------------------------------------
+
+server.tool(
+  "pitch_for_role",
+  "Argue in favour of Sebastian for a specific role. Uses the client's LLM (via MCP sampling) to generate a tailored, persuasive case drawing on his CV and publications.",
+  {
+    job_title: z.string().describe("The job title"),
+    company: z.string().describe("The company or organisation name"),
+    job_description: z.string().describe("The full job description or requirements"),
+    angle: z
+      .enum(["cover_letter", "elevator_pitch", "bullet_points", "recruiter_email"])
+      .optional()
+      .describe("Format of the output (default: cover_letter)"),
+    max_tokens: z.number().optional().describe("Max tokens for the generation (default: 1000)"),
+  },
+  async ({ job_title, company, job_description, angle, max_tokens }) => {
+    const data = getAllCvData();
+    const format = angle || "cover_letter";
+    const limit = max_tokens || 1000;
+
+    const formatInstruction = {
+      cover_letter:
+        "Write a professional cover letter (300-400 words). Opening hook, 2-3 body paragraphs with concrete evidence from Sebastian's CV and publications, closing with a clear call to action.",
+      elevator_pitch:
+        "Write a punchy 120-180 word elevator pitch: who Sebastian is, why he fits this role, and the single strongest piece of evidence.",
+      bullet_points:
+        "Produce 6-10 tight bullets mapping specific requirements from the job description to specific items in Sebastian's CV (companies, publications, skills). Each bullet: requirement -> evidence.",
+      recruiter_email:
+        "Write a short, confident recruiter-facing email (under 200 words) making the case for Sebastian. Subject line + body.",
+    }[format];
+
+    try {
+      const result = await server.server.createMessage({
+        maxTokens: limit,
+        systemPrompt:
+          "You are making the strongest possible case for Sebastian M. Schmon, PhD, for a specific role. Be concrete, cite specific experience and publications, and avoid generic language. Never fabricate qualifications — only use what is in the provided CV data.",
+        messages: [
+          {
+            role: "user",
+            content: {
+              type: "text",
+              text: `Role: ${job_title} at ${company}
+
+Job description / requirements:
+${job_description}
+
+Sebastian's full CV and publications (ground truth — do not invent beyond this):
+${JSON.stringify(data, null, 2)}
+
+Task: ${formatInstruction}`,
+            },
+          },
+        ],
+      });
+
+      const text =
+        result.content?.type === "text"
+          ? result.content.text
+          : JSON.stringify(result.content);
+
+      return { content: [{ type: "text", text }] };
+    } catch (err) {
+      return {
+        isError: true,
+        content: [
+          {
+            type: "text",
+            text: `Sampling failed: ${err?.message || String(err)}. This tool requires a client that supports MCP sampling.`,
+          },
+        ],
+      };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// PROMPTS
+// ---------------------------------------------------------------------------
+
+server.prompt(
+  "generate_cover_letter",
+  "Generate a cover letter tailored to a specific role",
+  {
+    job_title: z.string().describe("The job title to apply for"),
+    company: z.string().describe("The company name"),
+    job_description: z.string().optional().describe("The full job description"),
+  },
+  async ({ job_title, company, job_description }) => {
+    const data = getAllCvData();
+    return {
+      messages: [{
+        role: "user",
+        content: { type: "text", text: `You are writing a professional cover letter for Sebastian M. Schmon, PhD.\n\nCV Data:\n${JSON.stringify(data, null, 2)}\n\nPosition: ${job_title} at ${company}\n${job_description ? `Job Description: ${job_description}\n` : ""}\nWrite a compelling cover letter (under 400 words). Highlight relevant experience, publications, and skills.` },
+      }],
+    };
+  }
+);
+
+server.prompt(
+  "generate_summary",
+  "Generate a tailored professional summary",
+  {
+    target_role: z.string().describe("The type of role to tailor for"),
+    max_words: z.number().optional().describe("Maximum word count (default: 100)"),
+  },
+  async ({ target_role, max_words }) => {
+    const data = getAllCvData();
+    return {
+      messages: [{
+        role: "user",
+        content: { type: "text", text: `Write a professional summary for Sebastian M. Schmon tailored to a "${target_role}" position.\n\nCV Data:\n${JSON.stringify(data, null, 2)}\n\nMax ${max_words || 100} words. Professional tone suitable for a CV header.` },
+      }],
+    };
+  }
+);
+
+server.prompt(
+  "tailor_cv",
+  "Analyze a job description and recommend CV emphasis",
+  { job_description: z.string().describe("The full job description") },
+  async ({ job_description }) => {
+    const data = getAllCvData();
+    return {
+      messages: [{
+        role: "user",
+        content: { type: "text", text: `Analyze this job description and recommend how to tailor Sebastian M. Schmon's CV.\n\nJob Description:\n${job_description}\n\nCV Data:\n${JSON.stringify(data, null, 2)}\n\nProvide: relevance score (1-10), top 5 skills to highlight, which experiences to emphasize, most relevant publications, any gaps, and a rewritten professional summary.` },
+      }],
+    };
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Start
+// ---------------------------------------------------------------------------
+
+const transport = new StdioServerTransport();
+await server.connect(transport);

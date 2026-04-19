@@ -1,0 +1,251 @@
+{
+  "basics": {
+    "name": "Sebastian Schmon",
+    "label": "Leadership in AI Research & Engineering",
+    "title": "DPhil (Oxford)",
+    "url": "https://schmons.github.io/",
+    "location": "London, UK",
+    "summary": "I am a machine learning researcher, engineer and former professor driven by a passion for leveraging AI to tackle real-world challenges. I am proud to say that the teams under my guidance have always punched above their weight. With publications in top-tier conferences and journals, I take a collaborative approach to developing innovative algorithms and solutions that not only advance the field but also have a real world impact.",
+    "keywords": [
+      "Generative AI",
+      "Protein Structure",
+      "Single Cell Expression",
+      "Diffusion Models",
+      "Variational Methods",
+      "Transformers",
+      "Uncertainty Quantification",
+      "Bayesian Methods",
+      "Time Series",
+      "Particle Filters",
+      "Neural ODEs and SDEs",
+      "Causal Modeling",
+      "Simulation-based Inference",
+      "Anomaly Detection",
+      "Agents / MCP",
+      "LLMs"
+    ],
+    "profiles": [
+      { "network": "Twitter", "username": "SeBayesian", "url": "https://twitter.com/sebayesian" },
+      { "network": "GitHub", "username": "schmons", "url": "https://github.com/schmons" },
+      { "network": "Google Scholar", "username": "GWvvwhMAAAAJ", "url": "https://scholar.google.com/citations?user=GWvvwhMAAAAJ" }
+    ]
+  },
+  "work": [
+    {
+      "name": "Latent Labs",
+      "position": "AI Workstream Lead",
+      "url": "https://www.latentlabs.com/",
+      "location": "London, UK",
+      "startDate": "2025-08",
+      "endDate": "",
+      "bullets": [
+        "Heading the development of the internal AI agent.",
+        "Supervising and implementing AI platform integration via Model Context Protocol (MCP, TypeScript) as well as other platform improvements for better integration with agents, including building an OAuth2 authentication layer.",
+        "Leading agent development and research, including Python execution engine, multi-backend support (AWS Bedrock, Google VertexAI, Anthropic), graph structure, and tool development.",
+        "Setting up and managing Kubernetes deployment and infrastructure via Terraform."
+      ],
+      "highlights": ["Agents", "MCP", "OAuth2", "Kubernetes", "Terraform", "Leadership"]
+    },
+    {
+      "name": "Latent Labs",
+      "position": "Machine Learning Researcher",
+      "url": "https://www.latentlabs.com/",
+      "location": "London, UK",
+      "startDate": "2025-02",
+      "endDate": "2025-07",
+      "bullets": [
+        "Personally responsible for training the diffusion model behind the Latent-X platform, which was demonstrated to generate de-novo binders with nanomolar affinity.",
+        "Developed an improved inference algorithm (also served on the platform) that increased sample quality drastically.",
+        "Led engineering efforts to migrate cloud compute to AWS.",
+        "Developed inference pipelines for large-scale distributed sampling.",
+        "Led and organised the writing of the Latent-X paper.",
+        "Developed post-training validation scripts, including structural analysis, diversity and clustering approaches."
+      ],
+      "highlights": ["Diffusion", "Protein Design", "AWS", "Distributed Inference"]
+    },
+    {
+      "name": "Altos Labs",
+      "position": "Senior Staff Machine Learning Scientist",
+      "url": "https://www.altoslabs.com/",
+      "location": "Cambridge, UK",
+      "startDate": "2023",
+      "endDate": "2025",
+      "bullets": [
+        "Responsible for ideation and development of the \"Perturbench\" project to find and develop the most powerful models for predicting effects of perturbations.",
+        "Developed and implemented large scale AI/ML models (biological foundation models and generative models) for biological phenotypes.",
+        "Implemented and benchmarked several perturbation prediction models, including state-of-the-art architectures for single-cell data.",
+        "Involved in and supervised the whole modelling process, including foundational research, model development, engineering, MLOps, and deployment.",
+        "Novel models helped disentangle the very noisy human transcriptome and uncover mechanisms driving ageing and diseases.",
+        "Led the writing process for the Perturbench paper including the narrative."
+      ],
+      "highlights": ["Biology", "Foundation Models", "Single-cell", "Generative", "Leadership"]
+    },
+    {
+      "name": "Shift Lab",
+      "position": "Senior Research Scientist",
+      "location": "London, UK",
+      "startDate": "2022",
+      "endDate": "2023",
+      "bullets": [
+        "Founded by two ex-DeepMind co-founders as a bridge between academic AI research and real-world production software.",
+        "Worked with state-of-the-art generative models, including OpenAI's language models and diffusion models for image generation.",
+        "Developed ML approaches to learn representations from large language model embeddings and combine them with expert opinions on \"tone of voice\" for brand communications.",
+        "Built a model maximising brand communication value in terms of user engagement based on actionable attributes. Delivered prototype 3 weeks after joining."
+      ],
+      "highlights": ["LLMs", "Generative", "Representation Learning", "Startup"]
+    },
+    {
+      "name": "University of Durham",
+      "position": "Assistant Professor in Statistics",
+      "url": "https://www.durham.ac.uk/",
+      "location": "Durham, UK",
+      "startDate": "2021",
+      "endDate": "2022",
+      "bullets": [
+        "Supervised PhD, MSc and BSc projects, some leading to papers accepted at CVPR and ICLR workshops.",
+        "Updated the university's \"unsupervised learning\" module to include deep neural network based approaches.",
+        "Organised the setup of a new doctoral training centre.",
+        "Served as industry outreach officer."
+      ],
+      "highlights": ["Teaching", "Supervision", "Academic"]
+    },
+    {
+      "name": "Improbable Worlds Ltd.",
+      "position": "Research Scientist",
+      "url": "https://www.improbable.io/",
+      "location": "London, UK",
+      "startDate": "2020",
+      "endDate": "2022",
+      "bullets": [
+        "Leveraged new technologies for large-scale networked simulations to build generative models of complex systems and digital twins modelling e.g. Covid-19 policies, cyberattacks.",
+        "Ensured synthetic environments were a reflection of real world phenomena.",
+        "Used simulation-based inference to estimate uncertainty associated with imperfect simulations.",
+        "Built fast surrogate models (neural ODEs, normalising flows, diffusion models) reducing model complexity without losing predictive accuracy."
+      ],
+      "highlights": ["Simulation", "Digital Twins", "Bayesian Inference", "Neural ODEs"]
+    },
+    {
+      "name": "Foresight Works",
+      "position": "Head of Data Science",
+      "location": "Oxford, UK",
+      "startDate": "2018",
+      "endDate": "2020",
+      "bullets": [
+        "Second employee at this technology start-up using AI to avoid large cost overruns on megaprojects and improve executive decision making.",
+        "Helped set up and brainstorm core products, including statistical forecasting techniques for project progress and cost overrun estimation.",
+        "Consulted with large international clients (>£5bn in revenue) on data science and analytics challenges.",
+        "Compiled and delivered a complete project with recommendations on financial decisions for a new £1.2bn megaproject, presented to the COO."
+      ],
+      "highlights": ["Startup", "Forecasting", "Leadership", "Consulting"]
+    },
+    {
+      "name": "Oxford Asset Management",
+      "position": "Quantitative Analyst Intern",
+      "location": "Oxford, UK",
+      "startDate": "2018",
+      "endDate": "2018",
+      "highlights": ["Finance", "Quant"]
+    },
+    {
+      "name": "Goldman Sachs",
+      "position": "Summer Associate, Strategist (Risk Division)",
+      "location": "London, UK",
+      "startDate": "2017",
+      "endDate": "2017",
+      "highlights": ["Finance", "Risk"]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Magdalen College, University of Oxford",
+      "location": "Oxford, UK",
+      "url": "https://www.stats.ox.ac.uk/",
+      "area": "Computational Statistics and Machine Learning",
+      "studyType": "PhD",
+      "startDate": "2015",
+      "endDate": "2020",
+      "score": "1a, no corrections",
+      "supervisors": "Arnaud Doucet, George Deligiannidis",
+      "details": [
+        "Computational statistics: Markov chain Monte Carlo, Sequential Monte Carlo, Bayesian Statistics.",
+        "Machine Learning: Variational autoencoders, representation learning."
+      ]
+    },
+    {
+      "institution": "Imperial College London",
+      "location": "London, UK",
+      "url": "https://www.imperial.ac.uk/",
+      "area": "Mathematics (Erasmus Programme, non-degree)",
+      "studyType": "Exchange",
+      "startDate": "2014",
+      "endDate": "2015"
+    },
+    {
+      "institution": "Humboldt University of Berlin",
+      "location": "Berlin, Germany",
+      "url": "https://www.hu-berlin.de/",
+      "area": "Statistics",
+      "studyType": "MSc",
+      "startDate": "2013",
+      "endDate": "2015",
+      "score": "With Distinction",
+      "details": [
+        "Specialisation in Statistical Modelling and Inference, Econometrics, Monte-Carlo Methods, Survey Methodology."
+      ]
+    },
+    {
+      "institution": "Free University of Berlin",
+      "location": "Berlin, Germany",
+      "url": "https://www.fu-berlin.de/",
+      "area": "Mathematics",
+      "studyType": "BSc",
+      "startDate": "2012",
+      "endDate": "2015",
+      "details": [
+        "Specialisation in Probability Theory, Numerical Methods and Functional Analysis. Minor in Statistics."
+      ]
+    },
+    {
+      "institution": "Free University of Berlin",
+      "location": "Berlin, Germany",
+      "url": "https://www.fu-berlin.de/",
+      "area": "Economics",
+      "studyType": "BSc",
+      "startDate": "2009",
+      "endDate": "2013",
+      "details": [
+        "Specialisation in Quantitative Methods (Econometrics, Time Series, Statistics) and Economic Theory."
+      ]
+    }
+  ],
+  "awards": [
+    { "title": "Best Paper Award", "awarder": "UAI", "date": "2024" },
+    { "title": "Best Paper Award", "awarder": "AI4ABM Workshop, ICML", "date": "2022" },
+    { "title": "Best Reviewer Award", "awarder": "NeurIPS", "date": "2022" },
+    { "title": "Best Reviewer Award", "awarder": "UAI", "date": "2022" },
+    { "title": "Best Reviewer Award", "awarder": "UAI", "date": "2021" },
+    { "title": "EPSRC DPhil scholarship (1 per year)", "awarder": "University of Oxford", "date": "2015" },
+    { "title": "Departmental teaching scholarship", "awarder": "University of Oxford, Department of Statistics" },
+    { "title": "Erasmus grant", "awarder": "Humboldt University", "date": "2014" },
+    { "title": "Travel/research grant", "awarder": "Magdalen College Oxford" },
+    { "title": "ISBA travel grant", "awarder": "ISBA" }
+  ],
+  "skills": [
+    { "name": "Programming & Scripting", "keywords": ["Python", "R", "TypeScript", "JavaScript"] },
+    { "name": "ML / Deep Learning", "keywords": ["PyTorch", "PyTorch Lightning", "JAX", "scvi-tools", "scikit-learn"] },
+    { "name": "Bioinformatics", "keywords": ["Scanpy", "Anndata", "CellXGene-census"] },
+    { "name": "Data & Visualisation", "keywords": ["NumPy", "Pandas", "Matplotlib", "Seaborn", "Plotly", "Dash", "Streamlit"] },
+    { "name": "Databases", "keywords": ["TileDB", "MySQL", "PostgreSQL"] },
+    { "name": "Infrastructure & DevOps", "keywords": ["AWS", "Google Cloud", "Kubernetes", "Terraform", "Slurm"] },
+    { "name": "Workflow & Experiment Tracking", "keywords": ["GitHub", "Flyte", "Hydra", "Weights & Biases", "MLflow"] }
+  ],
+  "volunteer": [
+    { "organization": "NeurIPS", "position": "Area Chair", "url": "https://neurips.cc/", "startDate": "2024", "endDate": "2025" },
+    { "organization": "AISTATS", "position": "Area Chair", "startDate": "2025", "endDate": "2025" },
+    { "organization": "NeurIPS, ICML, ICLR, UAI, AISTATS, JMLR", "position": "Reviewer" }
+  ],
+  "languages": [
+    { "language": "German", "fluency": "Native speaker" },
+    { "language": "English", "fluency": "Fluent" }
+  ]
+}
