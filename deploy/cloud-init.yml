@@ -68,10 +68,8 @@ write_files:
           }
       }
 
-  - path: /home/ubuntu/app/server/ecosystem.config.cjs
+  - path: /tmp/ecosystem.config.cjs
     permissions: "0644"
-    owner: "ubuntu:ubuntu"
-    defer: true
     content: |
       module.exports = {
         apps: [{
@@ -111,10 +109,11 @@ runcmd:
   - apt-get install -y nodejs
   - npm install -g pm2
 
-  # Clone repo as ubuntu user.
+  # Clone repo as ubuntu user, then drop the pm2 config in place.
   - mkdir -p /home/ubuntu/logs
   - chown ubuntu:ubuntu /home/ubuntu/logs
   - sudo -u ubuntu git clone https://github.com/schmons/personal-site.git /home/ubuntu/app
+  - install -o ubuntu -g ubuntu -m 0644 /tmp/ecosystem.config.cjs /home/ubuntu/app/server/ecosystem.config.cjs
   - sudo -u ubuntu bash -c 'cd /home/ubuntu/app/server && npm ci --omit=dev'
 
   # Wire up nginx.
