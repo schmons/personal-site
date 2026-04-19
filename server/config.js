@@ -15,7 +15,6 @@ export const features = {
 export function navLinks() {
   const links = [
     { href: "/", label: "About" },
-    { href: "/cv", label: "CV" },
     { href: "/publications", label: "Publications" },
     { href: "/news", label: "News" },
     { href: "/mcp", label: "MCP" },

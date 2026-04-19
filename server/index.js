@@ -6,7 +6,6 @@ import { fileURLToPath } from "url";
 import { createMcpRequestHandler } from "./mcp/server.js";
 import { features } from "./config.js";
 import { renderHome } from "./render/home.js";
-import { renderCv } from "./render/cv.js";
 import { renderPublications } from "./render/publications.js";
 import { renderNewsPage } from "./render/news.js";
 import { renderMcpInfo } from "./render/mcp-info.js";
@@ -49,7 +48,6 @@ function send(res, html) {
 }
 
 app.get("/", (req, res) => send(res, renderHome()));
-app.get("/cv", (req, res) => send(res, renderCv()));
 app.get("/publications", (req, res) => send(res, renderPublications()));
 app.get("/news", (req, res) => send(res, renderNewsPage()));
 
