@@ -5,7 +5,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { getResume, getPublications, getAllCvData } from "./data-loader.js";
+import { getResume, getPublications, getAllCvData, buildRoleCv } from "./data-loader.js";
 
 const server = new McpServer({
   name: "sebastian-schmon-cv",
@@ -131,6 +131,26 @@ server.tool(
     if (institution) { const i = institution.toLowerCase(); edu = edu.filter((e) => e.institution?.toLowerCase().includes(i)); }
     if (degree) { const d = degree.toLowerCase(); edu = edu.filter((e) => e.studyType?.toLowerCase().includes(d)); }
     return { content: [{ type: "text", text: JSON.stringify(edu, null, 2) }] };
+  }
+);
+
+server.tool(
+  "get_cv",
+  "Return a role-tailored CV. Pick a role — there is no default.",
+  {
+    role: z
+      .enum(["agentic", "bioml", "diffusion", "sbi"])
+      .describe("agentic | bioml | diffusion | sbi"),
+  },
+  async ({ role }) => {
+    const cv = buildRoleCv(role);
+    if (!cv) {
+      return {
+        content: [{ type: "text", text: `Unknown role "${role}".` }],
+        isError: true,
+      };
+    }
+    return { content: [{ type: "text", text: JSON.stringify(cv, null, 2) }] };
   }
 );
 

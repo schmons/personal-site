@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { z } from "zod";
-import { getResume, getPublications, getAllCvData } from "./data-loader.js";
+import { getResume, getPublications, getAllCvData, buildRoleCv } from "./data-loader.js";
 
 function createServer() {
   const server = new McpServer({
@@ -266,6 +266,28 @@ function createServer() {
       return {
         content: [{ type: "text", text: JSON.stringify(education, null, 2) }],
       };
+    }
+  );
+
+  server.tool(
+    "get_cv",
+    "Return a role-tailored CV. Pick a role — there is no default. Returns a JSON CV filtered and reordered for that angle: basics (with tailored summary and keywords), experience, publications, education, skills, awards.",
+    {
+      role: z
+        .enum(["agentic", "bioml", "diffusion", "sbi"])
+        .describe(
+          "Which CV angle to return. 'agentic' = LLM agents & tool use. 'bioml' = AI for life sciences (Latent-X, Perturbench). 'diffusion' = generative/diffusion modelling. 'sbi' = simulation-based inference & Bayesian ML."
+        ),
+    },
+    async ({ role }) => {
+      const cv = buildRoleCv(role);
+      if (!cv) {
+        return {
+          content: [{ type: "text", text: `Unknown role "${role}". Valid: agentic, bioml, diffusion, sbi.` }],
+          isError: true,
+        };
+      }
+      return { content: [{ type: "text", text: JSON.stringify(cv, null, 2) }] };
     }
   );
 

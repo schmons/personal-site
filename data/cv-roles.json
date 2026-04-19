@@ -1,0 +1,99 @@
+{
+  "agentic": {
+    "label": "Agentic AI — Research & Engineering",
+    "summary": "ML researcher and engineer with hands-on experience building autonomous agents and tool-using LLM systems. Currently leading agent development at a biotech startup — designing multi-turn interaction architectures, tool-use frameworks, and execution engines for LLM-powered agents. Prior work spans multi-agent simulation, agent-based modelling calibrated to real data, and reinforcement learning in complex environments. Published at NeurIPS, ICLR, UAI (best paper), and AISTATS. Area Chair at NeurIPS 2024–25.",
+    "keywords": [
+      "LLM Agents",
+      "Tool Use / MCP",
+      "Multi-turn RL",
+      "Multi-agent Systems",
+      "Agent-based Models",
+      "RLHF / RLAIF",
+      "Generative Models",
+      "Bayesian Inference",
+      "Foundation Models"
+    ],
+    "experienceIds": ["latent-labs", "improbable", "altos-labs", "shift-lab", "durham"],
+    "publicationKeys": [
+      "latentlabs2025latentx",
+      "wu2024perturbench",
+      "dyer2024approximate",
+      "ward2022robust",
+      "joy2022learning",
+      "dyer2022amortised",
+      "joy2021capturing"
+    ]
+  },
+  "bioml": {
+    "label": "Bio-ML / AI for Life Sciences",
+    "summary": "AI researcher and engineer with deep experience applying machine learning to biological challenges. Trained the diffusion model behind Latent-X for de-novo protein binder design (nanomolar affinity). Built perturbation prediction models and biological foundation models at Altos Labs. Published at NeurIPS, ICLR, and UAI.",
+    "keywords": [
+      "Protein Design",
+      "Diffusion Models",
+      "Single-cell Transcriptomics",
+      "Biological Foundation Models",
+      "Perturbation Prediction",
+      "Generative Models",
+      "Bayesian Methods",
+      "Drug Discovery"
+    ],
+    "experienceIds": ["latent-labs", "altos-labs", "improbable", "durham"],
+    "publicationKeys": [
+      "latentlabs2025latentx",
+      "latentlabs2025latentx2",
+      "wu2024perturbench",
+      "dyer2024approximate",
+      "ward2022robust",
+      "joy2022learning",
+      "dyer2022amortised"
+    ]
+  },
+  "diffusion": {
+    "label": "Diffusion & Generative Models",
+    "summary": "Generative modelling researcher and engineer. Trained the diffusion model behind the Latent-X platform for de-novo protein binder design, and developed improved inference algorithms that drastically increased sample quality. Prior work on diffusion models spans protein structure, rotational alignment on SO(3), and anomaly detection. Published at NeurIPS, ICLR, and UAI with best paper awards.",
+    "keywords": [
+      "Diffusion Models",
+      "Score-based Generative Models",
+      "Flow Matching",
+      "Protein Design",
+      "Variational Methods",
+      "Representation Learning",
+      "Distributed Training",
+      "PyTorch / JAX"
+    ],
+    "experienceIds": ["latent-labs", "altos-labs", "shift-lab", "durham", "improbable"],
+    "publicationKeys": [
+      "latentlabs2025latentx",
+      "latentlabs2025latentx2",
+      "wu2024perturbench",
+      "joy2022learning",
+      "joy2021capturing",
+      "leach2022denoising",
+      "wyatt2022anoddpm"
+    ]
+  },
+  "sbi": {
+    "label": "Simulation-based Inference & Bayesian ML",
+    "summary": "Bayesian statistician and ML researcher specialising in simulation-based inference, MCMC, and likelihood-free methods. DPhil from Oxford under Arnaud Doucet and George Deligiannidis, with publications in Biometrika, NeurIPS, ICLR, UAI (best paper), and AISTATS. Work spans robust neural posterior estimation, approximate Bayesian computation with path signatures, and large-sample asymptotics of pseudo-marginal methods.",
+    "keywords": [
+      "Simulation-based Inference",
+      "Approximate Bayesian Computation",
+      "Neural Posterior Estimation",
+      "MCMC",
+      "Pseudo-marginal Methods",
+      "Variational Inference",
+      "Bayesian Statistics",
+      "Neural ODEs / SDEs"
+    ],
+    "experienceIds": ["improbable", "durham", "altos-labs", "latent-labs", "foresight"],
+    "publicationKeys": [
+      "dyer2024approximate",
+      "ward2022robust",
+      "joy2022learning",
+      "dyer2022amortised",
+      "schmon2022optimal",
+      "schmon2021large",
+      "dyer2022calibrating"
+    ]
+  }
+}

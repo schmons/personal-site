@@ -32,6 +32,7 @@
   },
   "work": [
     {
+      "id": "latent-labs",
       "name": "Latent Labs",
       "position": "AI Workstream Lead",
       "url": "https://www.latentlabs.com/",
@@ -47,6 +48,7 @@
       "highlights": ["Agents", "MCP", "OAuth2", "Kubernetes", "Terraform", "Leadership"]
     },
     {
+      "id": "latent-labs",
       "name": "Latent Labs",
       "position": "Machine Learning Researcher",
       "url": "https://www.latentlabs.com/",
@@ -64,6 +66,7 @@
       "highlights": ["Diffusion", "Protein Design", "AWS", "Distributed Inference"]
     },
     {
+      "id": "altos-labs",
       "name": "Altos Labs",
       "position": "Senior Staff Machine Learning Scientist",
       "url": "https://www.altoslabs.com/",
@@ -81,6 +84,7 @@
       "highlights": ["Biology", "Foundation Models", "Single-cell", "Generative", "Leadership"]
     },
     {
+      "id": "shift-lab",
       "name": "Shift Lab",
       "position": "Senior Research Scientist",
       "location": "London, UK",
@@ -95,6 +99,7 @@
       "highlights": ["LLMs", "Generative", "Representation Learning", "Startup"]
     },
     {
+      "id": "durham",
       "name": "University of Durham",
       "position": "Assistant Professor in Statistics",
       "url": "https://www.durham.ac.uk/",
@@ -110,6 +115,7 @@
       "highlights": ["Teaching", "Supervision", "Academic"]
     },
     {
+      "id": "improbable",
       "name": "Improbable Worlds Ltd.",
       "position": "Research Scientist",
       "url": "https://www.improbable.io/",
@@ -125,6 +131,7 @@
       "highlights": ["Simulation", "Digital Twins", "Bayesian Inference", "Neural ODEs"]
     },
     {
+      "id": "foresight",
       "name": "Foresight Works",
       "position": "Head of Data Science",
       "location": "Oxford, UK",
@@ -139,6 +146,7 @@
       "highlights": ["Startup", "Forecasting", "Leadership", "Consulting"]
     },
     {
+      "id": "oam",
       "name": "Oxford Asset Management",
       "position": "Quantitative Analyst Intern",
       "location": "Oxford, UK",
@@ -147,6 +155,7 @@
       "highlights": ["Finance", "Quant"]
     },
     {
+      "id": "goldman",
       "name": "Goldman Sachs",
       "position": "Summer Associate, Strategist (Risk Division)",
       "location": "London, UK",
