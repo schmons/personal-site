@@ -1,6 +1,6 @@
 # personal-site
 
-Source for [schmon.dev](https://schmon.dev). A small Express app that
+Source for [schmon.dev](https://www.schmon.dev). A small Express app that
 serves my CV, publications, and an MCP endpoint so AI assistants can
 query the same data.
 
