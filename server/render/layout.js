@@ -27,6 +27,9 @@ export function layout({ title, currentPath = "/", wide = false, body }) {
 <title>${escapeHtml(fullTitle)}</title>
 <meta name="description" content="Sebastian Schmon, machine learning researcher and statistician.">
 <link rel="icon" href="/assets/seb.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/style.css">
 <script>
   // Set theme before paint to avoid flash.
