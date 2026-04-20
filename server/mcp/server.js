@@ -274,16 +274,16 @@ function createServer() {
     "Return a role-tailored CV. Pick a role — there is no default. Returns a JSON CV filtered and reordered for that angle: basics (with tailored summary and keywords), experience, publications, education, skills, awards.",
     {
       role: z
-        .enum(["agentic", "bioml", "diffusion", "sbi"])
+        .enum(["agentic", "bioml", "diffusion", "sbi", "quant"])
         .describe(
-          "Which CV angle to return. 'agentic' = LLM agents & tool use. 'bioml' = AI for life sciences (Latent-X, Perturbench). 'diffusion' = generative/diffusion modelling. 'sbi' = simulation-based inference & Bayesian ML."
+          "Which CV angle to return. 'agentic' = LLM agents & tool use. 'bioml' = AI for life sciences (Latent-X, Perturbench). 'diffusion' = generative/diffusion modelling. 'sbi' = simulation-based inference & Bayesian ML. 'quant' = quantitative research, time-series, MCMC, risk modelling."
         ),
     },
     async ({ role }) => {
       const cv = buildRoleCv(role);
       if (!cv) {
         return {
-          content: [{ type: "text", text: `Unknown role "${role}". Valid: agentic, bioml, diffusion, sbi.` }],
+          content: [{ type: "text", text: `Unknown role "${role}". Valid: agentic, bioml, diffusion, sbi, quant.` }],
           isError: true,
         };
       }

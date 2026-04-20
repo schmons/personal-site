@@ -139,8 +139,8 @@ server.tool(
   "Return a role-tailored CV. Pick a role — there is no default.",
   {
     role: z
-      .enum(["agentic", "bioml", "diffusion", "sbi"])
-      .describe("agentic | bioml | diffusion | sbi"),
+      .enum(["agentic", "bioml", "diffusion", "sbi", "quant"])
+      .describe("agentic | bioml | diffusion | sbi | quant"),
   },
   async ({ role }) => {
     const cv = buildRoleCv(role);

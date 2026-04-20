@@ -95,5 +95,29 @@
       "schmon2021large",
       "dyer2022calibrating"
     ]
+  },
+  "quant": {
+    "label": "Quantitative Research & Modelling",
+    "summary": "Quantitative researcher and Bayesian statistician with a DPhil from Oxford and prior finance experience at Goldman Sachs (Risk Strategies) and Oxford Asset Management. Deep expertise in probabilistic modelling, MCMC, time-series inference, and simulation-based methods — publications include large-sample asymptotics of the pseudo-marginal method (Biometrika) and optimal scaling of random walk Metropolis algorithms. Built forecasting and cost-overrun models for multi-billion-pound projects as Head of Data Science at Foresight Works, and calibrated large-scale simulators of real-world economic and epidemiological systems at Improbable.",
+    "keywords": [
+      "Time Series",
+      "Monte Carlo / MCMC",
+      "Bayesian Inference",
+      "Stochastic Processes",
+      "Signal Extraction",
+      "Risk Modelling",
+      "Forecasting",
+      "Neural ODEs / SDEs",
+      "Python / C++"
+    ],
+    "experienceIds": ["latent-labs", "altos-labs", "improbable", "foresight", "oam", "goldman", "durham"],
+    "publicationKeys": [
+      "schmon2021large",
+      "schmon2022optimal",
+      "dyer2022amortised",
+      "ward2022robust",
+      "dyer2024approximate",
+      "dyer2022calibrating"
+    ]
   }
 }
