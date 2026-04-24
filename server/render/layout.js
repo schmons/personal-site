@@ -1,4 +1,4 @@
-import { navLinks } from "../config.js";
+import { navLinks, analytics } from "../config.js";
 
 export function escapeHtml(s) {
   if (s == null) return "";
@@ -60,6 +60,7 @@ ${body}
   </div>
 </footer>
 <script src="/script.js" defer></script>
+${analytics.cloudflareToken ? `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "${escapeHtml(analytics.cloudflareToken)}"}'></script>` : ""}
 </body>
 </html>`;
 }

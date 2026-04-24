@@ -4,6 +4,10 @@ const flag = (name) => {
   return v === "true" || v === "1" || v === "yes";
 };
 
+export const analytics = {
+  cloudflareToken: process.env.CLOUDFLARE_ANALYTICS_TOKEN || "",
+};
+
 export const features = {
   blog: flag("FEATURE_BLOG"),
   projects: flag("FEATURE_PROJECTS"),
