@@ -5,7 +5,7 @@ const flag = (name) => {
 };
 
 export const analytics = {
-  cloudflareToken: process.env.CLOUDFLARE_ANALYTICS_TOKEN || "",
+  cloudflareToken: "f3c73fc8c37d4a6c9167dabb083c5f01",
 };
 
 export const features = {

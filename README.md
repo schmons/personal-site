@@ -23,6 +23,6 @@ to `main` triggers a git-pull deploy through
 
 ## Analytics
 
-Optional. Set `CLOUDFLARE_ANALYTICS_TOKEN` to the site token from
-Cloudflare → Analytics & Logs → Web Analytics. The beacon is only
-injected when the env var is set. No cookies, no banner required.
+Cloudflare Web Analytics beacon, hardcoded in
+[server/config.js](server/config.js). The token is public (it ships in
+every page's HTML). No cookies, no consent banner required.
