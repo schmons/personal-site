@@ -20,3 +20,9 @@ One Ubuntu VPS, nginx in front, pm2 for process management. Provisioning
 is declarative via [deploy/cloud-init.yml](deploy/cloud-init.yml); push
 to `main` triggers a git-pull deploy through
 [.github/workflows/deploy.yml](.github/workflows/deploy.yml).
+
+## Analytics
+
+Cloudflare Web Analytics beacon, hardcoded in
+[server/config.js](server/config.js). The token is public (it ships in
+every page's HTML). No cookies, no consent banner required.
