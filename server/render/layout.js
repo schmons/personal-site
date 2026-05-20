@@ -61,6 +61,7 @@ ${body}
 </footer>
 <script src="/script.js" defer></script>
 ${analytics.cloudflareToken ? `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "${escapeHtml(analytics.cloudflareToken)}"}'></script>` : ""}
+${analytics.statcounter ? `<script>var sc_project=${analytics.statcounter.project};var sc_invisible=1;var sc_security="${analytics.statcounter.security}";</script><script async src="https://www.statcounter.com/counter/counter.js"></script>` : ""}
 </body>
 </html>`;
 }

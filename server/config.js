@@ -6,6 +6,7 @@ const flag = (name) => {
 
 export const analytics = {
   cloudflareToken: "f3c73fc8c37d4a6c9167dabb083c5f01",
+  statcounter: { project: 13242066, security: "0343dc71" },
 };
 
 export const features = {
