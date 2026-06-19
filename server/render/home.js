@@ -44,7 +44,7 @@ export function renderHome() {
         <h1>Sebastian M. Schmon</h1>
         <p class="subtitle">${escapeHtml(subtitle)}</p>
         <p class="links">
-          <a href="https://scholar.google.com/citations?user=GWvvwhMAAAAJ">Scholar</a> ·
+          <a href="https://scholar.google.com/citations?user=hs2WrYYAAAAJ&hl=en">Scholar</a> ·
           <a href="https://twitter.com/sebayesian">Twitter</a> ·
           <a href="https://github.com/schmons">GitHub</a> ·
           <a href="mailto:sebastian.schmon@gmail.com">Email</a>
