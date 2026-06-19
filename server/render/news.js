@@ -49,5 +49,5 @@ export function renderNewsPage() {
       ${items.length ? renderNewsList(items) : "<p class='muted'>No news yet.</p>"}
     </article>
   `;
-  return layout({ title: "News", currentPath: "/news", body });
+  return layout({ title: "News", description: "Latest news and updates from Sebastian Schmon.", currentPath: "/news", body });
 }

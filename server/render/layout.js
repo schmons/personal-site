@@ -1,4 +1,4 @@
-import { navLinks, analytics } from "../config.js";
+import { navLinks, analytics, siteUrl } from "../config.js";
 
 export function escapeHtml(s) {
   if (s == null) return "";
@@ -10,8 +10,13 @@ export function escapeHtml(s) {
     .replace(/'/g, "&#39;");
 }
 
-export function layout({ title, currentPath = "/", wide = false, body }) {
+const DEFAULT_DESC = "Sebastian Schmon — machine learning researcher and statistician working on frontier models for biologics.";
+const OG_IMAGE = `${siteUrl}/assets/seb2.jpg`;
+
+export function layout({ title, description, currentPath = "/", wide = false, body }) {
   const fullTitle = title ? `${title} · Sebastian Schmon` : "Sebastian Schmon";
+  const desc = description || DEFAULT_DESC;
+  const canonicalUrl = `${siteUrl}${currentPath}`;
   const nav = navLinks()
     .map((l) => {
       const active = l.href === currentPath ? ' aria-current="page"' : "";
@@ -25,7 +30,15 @@ export function layout({ title, currentPath = "/", wide = false, body }) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${escapeHtml(fullTitle)}</title>
-<meta name="description" content="Sebastian Schmon, machine learning researcher and statistician.">
+<meta name="description" content="${escapeHtml(desc)}">
+<link rel="canonical" href="${canonicalUrl}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="${escapeHtml(fullTitle)}">
+<meta property="og:description" content="${escapeHtml(desc)}">
+<meta property="og:url" content="${canonicalUrl}">
+<meta property="og:image" content="${OG_IMAGE}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@sebayesian">
 <link rel="icon" href="/assets/seb2.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
