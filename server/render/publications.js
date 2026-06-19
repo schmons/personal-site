@@ -19,7 +19,7 @@ export function paperLinks(p) {
   if (p.doi) links.push(`<a href="https://doi.org/${escapeHtml(p.doi)}">doi</a>`);
   if (p.googleScholarId)
     links.push(
-      `<a href="https://scholar.google.com/citations?view_op=view_citation&user=GWvvwhMAAAAJ&citation_for_view=GWvvwhMAAAAJ:${escapeHtml(p.googleScholarId)}">scholar</a>`
+      `<a href="https://scholar.google.com/citations?view_op=view_citation&user=hs2WrYYAAAAJ&citation_for_view=hs2WrYYAAAAJ:${escapeHtml(p.googleScholarId)}">scholar</a>`
     );
   if (!links.length) return "";
   return `<div class="pub-links">${links.join(" · ")}</div>`;
@@ -60,7 +60,7 @@ export function renderPublications() {
   const body = `
     <article class="publications">
       <h1>Publications</h1>
-      <p class="muted"><a href="https://scholar.google.com/citations?user=GWvvwhMAAAAJ">Google Scholar</a></p>
+      <p class="muted"><a href="https://scholar.google.com/citations?user=hs2WrYYAAAAJ&hl=en">Google Scholar</a></p>
       ${groups}
     </article>
   `;
