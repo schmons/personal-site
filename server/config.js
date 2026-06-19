@@ -1,3 +1,5 @@
+export const siteUrl = "https://schmon.dev";
+
 // Feature flags. Set via env vars. Unknown values default to false.
 const flag = (name) => {
   const v = process.env[name];

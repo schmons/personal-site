@@ -65,5 +65,5 @@ export function renderPublications() {
     </article>
   `;
 
-  return layout({ title: "Publications", currentPath: "/publications", wide: true, body });
+  return layout({ title: "Publications", description: "Publications by Sebastian Schmon on machine learning, statistics, and probability theory.", currentPath: "/publications", wide: true, body });
 }

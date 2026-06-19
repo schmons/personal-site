@@ -48,5 +48,5 @@ export function renderMcpInfo(req) {
   </article>
   `;
 
-  return layout({ title: "MCP", currentPath: "/mcp", body });
+  return layout({ title: "MCP", description: "Connect any MCP-capable AI assistant to Sebastian Schmon's CV and publications.", currentPath: "/mcp", body });
 }

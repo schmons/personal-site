@@ -4,7 +4,7 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import { createMcpRequestHandler } from "./mcp/server.js";
-import { features } from "./config.js";
+import { features, siteUrl } from "./config.js";
 import { renderHome } from "./render/home.js";
 import { renderPublications } from "./render/publications.js";
 import { renderNewsPage } from "./render/news.js";
@@ -40,6 +40,25 @@ app.get("/mcp", (req, res, next) => {
     return;
   }
   return mcp.handleGet(req, res, next);
+});
+
+// --------------------- SEO ---------------------
+app.get("/robots.txt", (req, res) => {
+  res.type("text/plain").send(`User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
+});
+
+app.get("/sitemap.xml", (req, res) => {
+  const pages = ["/", "/publications", "/news", "/mcp"];
+  if (features.blog) pages.push("/blog");
+  if (features.projects) pages.push("/projects");
+  if (features.teaching) pages.push("/teaching");
+  if (features.repos) pages.push("/repositories");
+  const urls = pages
+    .map((p) => `  <url><loc>${siteUrl}${p}</loc></url>`)
+    .join("\n");
+  res.type("application/xml").send(
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`
+  );
 });
 
 // --------------------- Pages ---------------------
