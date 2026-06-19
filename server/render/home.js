@@ -39,7 +39,7 @@ export function renderHome() {
   const body = `
   <article class="home">
     <div class="home-header">
-      <img class="avatar" src="/assets/seb.jpeg" alt="Sebastian Schmon">
+      <img class="avatar" src="/assets/seb2.jpg" alt="Sebastian Schmon">
       <div>
         <h1>Sebastian M. Schmon</h1>
         <p class="subtitle">${escapeHtml(subtitle)}</p>
