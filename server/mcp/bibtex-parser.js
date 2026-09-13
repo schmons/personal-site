@@ -2,7 +2,21 @@
  * Parses BibTeX content into structured publication objects.
  * Uses @retorquere/bibtex-parser for robust LaTeX-aware parsing.
  */
-import { parse as bibtexParse } from "@retorquere/bibtex-parser";
+import bibtex from "@retorquere/bibtex-parser";
+
+const { parse: bibtexParse, fields: bibFields } = bibtex;
+
+// Fields that must come through untouched. The parser's default verbatim list
+// covers url/doi/eprint; identifiers like google_scholar_id contain
+// underscores that would otherwise be interpreted as TeX subscripts
+// (k_IJM867U9cC -> k<sub>I</sub>JM867U9cC).
+const VERBATIM_FIELDS = [
+  /^citeulike-linkout-[0-9]+$/,
+  /^bdsk-url-[0-9]+$/,
+  ...bibFields.verbatim,
+  "google_scholar_id",
+  "abbr",
+];
 
 function cleanLatex(str) {
   if (!str) return "";
@@ -14,93 +28,91 @@ function cleanLatex(str) {
     .trim();
 }
 
-function extractAuthors(entry) {
-  if (entry.fields?.author) {
-    return entry.fields.author.map((a) => {
-      const parts = [];
-      if (a.firstName) parts.push(a.firstName);
-      if (a.lastName) parts.push(a.lastName);
-      return parts.join(" ") || String(a);
-    });
+/** The parser returns some fields as arrays; join text fields, take the first of scalar ones. */
+function joined(v) {
+  if (v === undefined || v === null) return "";
+  return Array.isArray(v) ? v.join("") : String(v);
+}
+
+function first(v) {
+  if (v === undefined || v === null) return "";
+  return Array.isArray(v) ? String(v[0] ?? "") : String(v);
+}
+
+function list(v) {
+  if (v === undefined || v === null) return [];
+  const arr = Array.isArray(v) ? v : String(v).split(/[;,]/);
+  return arr.map((s) => cleanLatex(String(s))).filter(Boolean);
+}
+
+/**
+ * The parser yields author names as plain strings in whatever form the bib
+ * used ("Doe, Jane" or "Jane Doe"). Normalise to "First Last" so consumers see
+ * one format.
+ */
+function formatAuthor(a) {
+  if (a && typeof a === "object") {
+    const parts = [a.firstName, a.lastName].filter(Boolean);
+    if (parts.length) return parts.join(" ");
   }
-  return [];
+  const s = cleanLatex(String(a));
+  const comma = s.indexOf(",");
+  if (comma === -1) return s;
+  const last = s.slice(0, comma).trim();
+  const first = s.slice(comma + 1).trim();
+  return first ? `${first} ${last}` : last;
+}
+
+function extractAuthors(entry) {
+  const authors = entry.fields?.author;
+  if (!Array.isArray(authors)) return [];
+  return authors.map(formatAuthor).filter(Boolean);
+}
+
+/** Drop empty strings, empty arrays, null, and undefined so consumers get compact objects. */
+function compact(obj) {
+  const out = {};
+  for (const [k, v] of Object.entries(obj)) {
+    if (v === null || v === undefined || v === "") continue;
+    if (Array.isArray(v) && v.length === 0) continue;
+    out[k] = v;
+  }
+  return out;
 }
 
 export function parseBibtex(raw) {
   // Strip YAML frontmatter (papers.bib starts with --- / ---)
   const cleaned = raw.replace(/^---[\s\S]*?---\s*/, "");
 
-  const result = bibtexParse(cleaned, { sentenceCase: false });
+  const result = bibtexParse(cleaned, {
+    sentenceCase: false,
+    verbatimFields: VERBATIM_FIELDS,
+  });
 
   return result.entries.map((entry) => {
     const fields = entry.fields || {};
+    const year = fields.year ? parseInt(first(fields.year), 10) : null;
 
-    return {
+    return compact({
       key: entry.key,
       type: entry.type,
-      title: cleanLatex(
-        Array.isArray(fields.title) ? fields.title.join("") : fields.title || ""
-      ),
+      title: cleanLatex(joined(fields.title)),
       authors: extractAuthors(entry),
-      year: fields.year
-        ? parseInt(Array.isArray(fields.year) ? fields.year[0] : fields.year, 10)
-        : null,
+      year: Number.isFinite(year) ? year : null,
       venue:
-        cleanLatex(
-          Array.isArray(fields.booktitle)
-            ? fields.booktitle.join("")
-            : fields.booktitle || ""
-        ) ||
-        cleanLatex(
-          Array.isArray(fields.journal)
-            ? fields.journal.join("")
-            : fields.journal || ""
-        ) ||
+        cleanLatex(joined(fields.booktitle)) ||
+        cleanLatex(joined(fields.journal)) ||
+        cleanLatex(joined(fields.school)) ||
         "",
-      abbr: fields.abbr
-        ? cleanLatex(
-            Array.isArray(fields.abbr) ? fields.abbr.join("") : fields.abbr
-          )
-        : null,
-      selected:
-        fields.selected &&
-        String(
-          Array.isArray(fields.selected)
-            ? fields.selected[0]
-            : fields.selected
-        ).toLowerCase() === "true",
-      googleScholarId: fields.google_scholar_id
-        ? Array.isArray(fields.google_scholar_id)
-          ? fields.google_scholar_id[0]
-          : fields.google_scholar_id
-        : null,
-      url: fields.url
-        ? Array.isArray(fields.url)
-          ? fields.url[0]
-          : fields.url
-        : null,
-      doi: fields.doi
-        ? Array.isArray(fields.doi)
-          ? fields.doi[0]
-          : fields.doi
-        : null,
-      abstract: fields.abstract
-        ? cleanLatex(
-            Array.isArray(fields.abstract)
-              ? fields.abstract.join("")
-              : fields.abstract
-          )
-        : null,
-      pages: fields.pages
-        ? Array.isArray(fields.pages)
-          ? fields.pages.join("")
-          : fields.pages
-        : null,
-      volume: fields.volume
-        ? Array.isArray(fields.volume)
-          ? fields.volume[0]
-          : fields.volume
-        : null,
-    };
+      abbr: cleanLatex(joined(fields.abbr)) || null,
+      selected: first(fields.selected).toLowerCase() === "true",
+      keywords: list(fields.keywords),
+      googleScholarId: first(fields.google_scholar_id) || null,
+      url: first(fields.url) || null,
+      doi: first(fields.doi) || null,
+      abstract: cleanLatex(joined(fields.abstract)) || null,
+      pages: joined(fields.pages) || null,
+      volume: first(fields.volume) || null,
+    });
   });
 }

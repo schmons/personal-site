@@ -1,6 +1,7 @@
 import express from "express";
 import compression from "compression";
 import cors from "cors";
+import rateLimit from "express-rate-limit";
 import path from "path";
 import { fileURLToPath } from "url";
 import { createMcpRequestHandler } from "./mcp/server.js";
@@ -21,13 +22,39 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.disable("x-powered-by");
+// nginx terminates TLS on the same box and sets X-Forwarded-*; trust exactly one hop
+// so req.ip is the real client (needed for per-IP rate limiting).
+app.set("trust proxy", 1);
 app.use(compression());
 
 // --------------------- MCP ---------------------
-app.use("/mcp", cors());
-app.use("/mcp", express.json());
+// Browser-based MCP clients can only read the session id if it is exposed.
+app.use(
+  "/mcp",
+  cors({ exposedHeaders: ["Mcp-Session-Id", "Mcp-Protocol-Version"] })
+);
+// Public, unauthenticated endpoint on a small box: cap request rate per IP.
+app.use(
+  "/mcp",
+  rateLimit({
+    windowMs: 60 * 1000,
+    limit: 120,
+    standardHeaders: "draft-7",
+    legacyHeaders: false,
+    message: {
+      jsonrpc: "2.0",
+      error: { code: -32000, message: "Too many requests, slow down." },
+      id: null,
+    },
+  })
+);
+app.use("/mcp", express.json({ limit: "256kb" }));
 
 const mcp = createMcpRequestHandler();
+
+app.get("/healthz", (req, res) =>
+  res.json({ ok: true, sessions: mcp.sessionCount() })
+);
 app.post("/mcp", mcp.handlePost);
 app.delete("/mcp", mcp.handleDelete);
 

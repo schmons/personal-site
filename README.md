@@ -14,6 +14,19 @@ npm start
 
 Then open http://localhost:3000.
 
+Run the MCP server tests (they spawn the server on a free port):
+
+```
+cd server
+npm test
+```
+
+To use the MCP server over stdio instead of HTTP (Claude Desktop, Claude Code):
+
+```
+claude mcp add schmon-cv -- node /absolute/path/to/server/mcp/stdio.js
+```
+
 ## Deploy
 
 One Ubuntu VPS, nginx in front, pm2 for process management. Provisioning
