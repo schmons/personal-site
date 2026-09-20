@@ -24,7 +24,9 @@ app.disable("x-powered-by");
 app.use(compression());
 
 // --------------------- MCP ---------------------
-app.use("/mcp", cors());
+// Expose Mcp-Session-Id so browser-based MCP clients can read it off the
+// initialize response; CORS hides non-safelisted headers from JS otherwise.
+app.use("/mcp", cors({ exposedHeaders: ["Mcp-Session-Id"] }));
 app.use("/mcp", express.json());
 
 const mcp = createMcpRequestHandler();
