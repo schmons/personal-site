@@ -46,6 +46,7 @@ The deploy workflow uses the `ubuntu` user, no separate secret needed.
 ### 6. Verify
 
 - https://schmon.dev loads the site
+- https://schmon.dev/healthz returns `{"ok":true,...}`
 - https://schmon.dev/mcp shows the MCP info page in a browser
 - `claude mcp add --transport http schmon-cv https://schmon.dev/mcp` connects
 
