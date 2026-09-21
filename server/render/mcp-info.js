@@ -14,7 +14,7 @@ export function renderMcpInfo(req) {
   <article class="mcp-info">
     <h1>MCP endpoint</h1>
 
-    <p class="lede">A CV is stale the moment you export it, and it puts you in a box: it tries to answer questions before they've been asked. An MCP server reverses that. The CV becomes dynamic and responsive, the way it should be. Ask about my background, pull specific publications, or check how my experience maps to a role you're hiring for. It's also the kind of infrastructure I build at <a href="https://www.latentlabs.com/">Latent Labs</a>.</p>
+    <p class="lede">My CV is available as an MCP server. Connect an AI assistant to it and ask about my background, pull specific publications, or check how my experience maps to a role you are hiring for. Building this kind of infrastructure is part of my work at <a href="https://www.latentlabs.com/">Latent Labs</a>.</p>
 
     <p>Point any MCP-capable client (Claude, Cursor, and friends) at:</p>
 
@@ -44,7 +44,6 @@ export function renderMcpInfo(req) {
   }
 }</code></pre>
 
-    <p class="muted mcp-footnote">Streamable HTTP, no auth, public. <a href="https://github.com/schmons/personal-site">Source on GitHub</a>.</p>
   </article>
   `;
 

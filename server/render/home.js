@@ -57,7 +57,7 @@ export function renderHome() {
     </div>
 
     <aside class="callout">
-      This site has an <a href="/mcp">MCP server</a>. If you use an AI assistant, you can connect it and ask questions about my CV and publications instead of reading the pages yourself.
+      This site has an <a href="/mcp">MCP server</a>. If you use an AI assistant, you can connect it and ask questions about my CV and publications.
     </aside>
 
     ${recentNews.length ? `<section class="home-news"><h2>News</h2>${renderNewsList(recentNews)}<p><a href="/news">All news →</a></p></section>` : ""}
