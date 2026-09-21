@@ -405,13 +405,6 @@ nav a[aria-current="page"] { color: var(--accent); border-bottom-color: var(--ac
   transform: translateX(2px);
 }
 
-.mcp-footnote {
-  margin-top: var(--s-8);
-  font-size: var(--fs-xs);
-  text-align: center;
-  font-family: var(--font-sans);
-}
-
 /* ---------- News list ---------- */
 .news-list {
   list-style: none;
